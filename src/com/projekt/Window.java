@@ -4,6 +4,7 @@ import javafx.scene.layout.Border;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 
 public class Window extends JFrame {
@@ -24,9 +25,12 @@ public class Window extends JFrame {
             jp.setMaximumSize(new Dimension(500, 10));
             for (int i = 0; i < 50; i++) {
                 JButton j = new JButton();
+                Random r = new Random(9);
                 j.setText("");
+                //j.setText(""+r.nextInt());
                 j.setBackground(Color.green);
-                j.setBorderPainted(false);
+                j.setName("a");
+               // j.setBorderPainted(false);
                 j.setPreferredSize(new Dimension(10, 10));
                 j.setMaximumSize(new Dimension(10, 10));
 
