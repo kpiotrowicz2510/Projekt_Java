@@ -12,7 +12,17 @@ public class Swiat {
     private int new_id;
     private Organizm czlowiek;
     private List<Organizm> organizmy;
-    public Swiat(){
 
+    public Swiat(){
+       // Window.getFrames().getClass().;
+    }
+    public int GetRX(){
+        return this.sRX;
+    }
+    public int GetRY(){
+        return this.sRY;
+    }
+    public void UpdateLoop(){
+        
     }
 }
