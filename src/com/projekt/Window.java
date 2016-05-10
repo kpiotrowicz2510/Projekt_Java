@@ -32,11 +32,12 @@ public class Window extends JFrame {
             for (int i = 0; i < sizeX; i++) {
                 JButton j = new JButton();
                 Random r = new Random(9);
-                j.setText("");
-                //j.setText(""+r.nextInt());
+                //j.setText("");
+
                 j.setBackground(Color.green);
                 int _id = aj*sizeX+i;
                 j.setName(_id+"");
+                //j.setText(""+_id);
                // j.setBorderPainted(false);
                 j.setPreferredSize(new Dimension(10, 10));
                 j.setMaximumSize(new Dimension(10, 10));

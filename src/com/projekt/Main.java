@@ -9,7 +9,14 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Window();
+                Window a = new Window();
+                Swiat s = new Swiat(a);
+                Wilk w = new Wilk(s);
+                Wilk w2 = new Wilk(s);
+                s.AddOrganizm(w);
+                s.AddOrganizm(w2);
+               // s.AddOrganizm(w);
+                s.RysujSwiat();
             }
         });
     }
