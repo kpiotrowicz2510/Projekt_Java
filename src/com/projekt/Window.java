@@ -13,9 +13,10 @@ import java.util.Random;
 
 
 public class Window extends JFrame {
-
-    public Window() {
+    Swiat swiat;
+    public Window(Swiat swiat) {
         super("Hello World");
+        this.swiat = swiat;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800,600);
         JPanel mainPanelX = new JPanel();
@@ -59,7 +60,12 @@ public class Window extends JFrame {
             JButton j = new JButton();
             j.setText("Przycisk");
             j.setPreferredSize(new Dimension(2,20));
-
+            j.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e){
+                    swiat.UpdateLoop();
+                }
+            });
             jp2.add(j);
 
         }

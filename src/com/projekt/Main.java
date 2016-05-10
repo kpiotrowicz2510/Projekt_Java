@@ -4,20 +4,18 @@ import java.awt.EventQueue;
 
 
 public class Main {
-
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                Window a = new Window();
-                Swiat s = new Swiat(a);
+                Swiat s = new Swiat();
+                Window a = new Window(s);
+                s.SetWindow(a);
                 Wilk w = new Wilk(s);
                 Wilk w2 = new Wilk(s);
+        Lis l1 = new Lis(s);
+        s.AddOrganizm(l1);
                 s.AddOrganizm(w);
                 s.AddOrganizm(w2);
                // s.AddOrganizm(w);
                 s.RysujSwiat();
-            }
-        });
+
     }
 }

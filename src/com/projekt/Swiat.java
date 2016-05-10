@@ -22,8 +22,7 @@ public class Swiat {
     protected List<String> info;
     private Window okienko;
 
-    public Swiat(Window okienko){
-        this.okienko = okienko;
+    public Swiat(){
         this.organizmy = new ArrayList<Organizm>();
         this.info = new ArrayList<String>();
        // Window.getFrames().getClass().;
@@ -35,11 +34,29 @@ public class Swiat {
         return this.sRY;
     }
     public void UpdateLoop(){
-
+        this.WykonajTure();
+        this.RysujSwiat();
     }
 
     private void WykonajTure(){
+        for (int i = 0; i < this.organizmy.size(); i++){
+            this.organizmy.get(i).akcja();
+        }
+    }
+    public void SetWindow(Window a){
+        this.okienko = a;
+    }
+    private void Clear(Color c) {
+        JPanel p1 = (JPanel) this.okienko.getContentPane().getComponents()[0];
+        for(int i =0;i<this.sRY;i++){
+            JPanel x2  = (JPanel) p1.getComponents()[i];
+            for(int j=0;j<this.sRX;j++){
+                JButton b = (JButton) x2.getComponent(j);
 
+                    b.setBackground(c);
+
+            }
+        }
     }
     private void ChangeState(Color c, int x, int y){
         JPanel p1 = (JPanel) this.okienko.getContentPane().getComponents()[0];
@@ -54,21 +71,24 @@ public class Swiat {
         }
     }
     public void RysujSwiat(){
+        this.Clear(Color.GREEN);
         for(int i =0; i<this.organizmy.size();i++){
            this.ChangeState(this.organizmy.get(i).GetColor(),this.organizmy.get(i).GetX(),this.organizmy.get(i).GetY());
         }
     }
 
     public void AddOrganizm(Organizm o){
-        Random r1 = new Random(this.sRX);
-        Random r2 = new Random(this.sRY);
+        Random r1 = new Random();
+        Random r2 = new Random();
 
-        int x = r1.nextInt();
-        int y = r2.nextInt();
+        int x = r1.nextInt(this.sRX);
+        int y = r2.nextInt(this.sRY);
 
         if(this.freeSpace(x,y)){
             //this.org_c.split(",")[y*this.sRX+x] = o.GetColor().toString();
             o.SetID(this.new_id);
+            o.SetX(x);
+            o.SetY(y);
             this.new_id++;
             this.organizmy.add(o);
             this.organizmy.sort(new Comparator<Organizm>() {
@@ -103,6 +123,14 @@ public class Swiat {
             });
             this.info.add("Dodano nowy organizm "+o.getClass().getName());
         }
+    }
+    public Organizm podajOrganizm(int x, int y){
+        for (int i = 0; i < this.organizmy.size(); i++) {
+            if (this.organizmy.get(i).GetX() == x &&this.organizmy.get(i).GetY() == y) {
+                return this.organizmy.get(i);
+            }
+        }
+        return null;
     }
     public void deleteOrganizm(int id){
         int del_id = -1;
