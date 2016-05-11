@@ -152,11 +152,24 @@ public class Swiat {
             }
         }
         return ret;
-       // if(this.org_c.split(",")[y*this.sRX+x]!=""){
-       //     return false;
-       // }else{
-       //     return true;
-       // }
+    }
+    public Dimension freeSpaceP(int x2, int y2){
+        int xs = 0;
+        int ys = 0;
+        if (x2 == 0) {
+            xs = 1;
+        }
+        if (y2 == 0) {
+            ys = 1;
+        }
+        for (int y = -1 + ys; y < 2 + ys; y++) {
+            for (int x = -1 + xs; x < 2 + xs; x++) {
+                if (this.freeSpace((x2 + x), (y2 + y))) {
+                    Dimension d = new Dimension(x2+x,y2+y);
+                    return d;
+                }
+            }
+        }
     }
     public void SetCzlowiek(Organizm c){
         this.czlowiek = c;

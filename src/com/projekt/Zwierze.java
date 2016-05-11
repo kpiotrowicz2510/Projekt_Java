@@ -23,8 +23,8 @@ public class Zwierze extends Organizm {
     }
     public void akcja(){
         Random r1 = new Random();
-        int x = r1.nextInt(1);
-        int y = r1.nextInt(1);
+        int x = r1.nextInt(2);
+        int y = r1.nextInt(2);
 
         if(x==0){
             this.SetX(this.GetX()-1);
