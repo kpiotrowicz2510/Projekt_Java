@@ -42,7 +42,7 @@ public class Window extends JFrame {
                 int _id = aj*sizeX+i;
                 j.setName(_id+"");
                 //j.setText(""+_id);
-               // j.setBorderPainted(false);
+                j.setBorderPainted(false);
                 j.setPreferredSize(new Dimension(10, 10));
                 j.setMaximumSize(new Dimension(10, 10));
                 j.addActionListener(new ActionListener()
