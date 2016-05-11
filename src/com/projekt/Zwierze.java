@@ -1,5 +1,6 @@
 package com.projekt;
 
+import java.awt.*;
 import java.util.Random;
 
 /**
@@ -40,7 +41,15 @@ public class Zwierze extends Organizm {
         }
     }
     public void rozmnazanie(){
-
+        Dimension a = this.GetSwiat().freeSpaceP(this.GetX(),this.GetY());
+        Zwierze f = this;
+        Zwierze g = f;
+        g.SetColor(this.GetColor());
+        g.SetX(a.width);
+        g.SetY(a.height);
+        if (a.width > -1 && a.height > -1) {
+            this.GetSwiat().AddOrganizm(g, a.width, a.height);
+        }
     }
     public void walka(Organizm o){
         if (this.GetSila() > o.GetSila()) {

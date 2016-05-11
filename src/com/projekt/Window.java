@@ -4,6 +4,9 @@ import javafx.scene.layout.Border;
 import jdk.nashorn.internal.runtime.Debug;
 
 import javax.swing.*;
+import javax.swing.text.Element;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.ListView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,6 +72,21 @@ public class Window extends JFrame {
             jp2.add(j);
 
         }
+        JEditorPane pane = new JEditorPane();
+        pane.setMaximumSize(new Dimension(100,100));
+        pane.setContentType("text/html");
+        pane.setText("<ol id='foo'><li>One</li><li>Two</li></ol>");
+        HTMLDocument doc = (HTMLDocument) pane.getDocument();
+       // add(pane);
+
+        //Get the ref of foo element
+        Element ele=doc.getElement("foo");
+        ListView view=new ListView(ele);
+        System.out.println(ele.getElementCount());
+        try{
+            doc.insertBeforeEnd(ele.getElement(0), "<ul><li>Test");
+        }catch(Exception ex){}
+        mainPanel.add(pane);
         //mainPanel.add(jp);
         mainPanelX.add(mainPanel);
         mainPanelX.add(jp2);

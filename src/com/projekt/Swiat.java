@@ -39,7 +39,7 @@ public class Swiat {
     }
 
     private void WykonajTure(){
-        for (int i = 0; i < this.organizmy.size(); i++){
+        for (int i = this.organizmy.size()-1; i >= 0 ; i--){
             this.organizmy.get(i).akcja();
         }
     }
@@ -72,7 +72,7 @@ public class Swiat {
     }
     public void RysujSwiat(){
         this.Clear(Color.GREEN);
-        for(int i =0; i<this.organizmy.size();i++){
+        for (int i = 0; i < this.organizmy.size() ; i++){
            this.ChangeState(this.organizmy.get(i).GetColor(),this.organizmy.get(i).GetX(),this.organizmy.get(i).GetY());
         }
     }
@@ -85,22 +85,12 @@ public class Swiat {
         int y = r2.nextInt(this.sRY);
 
         if(this.freeSpace(x,y)){
-            //this.org_c.split(",")[y*this.sRX+x] = o.GetColor().toString();
             o.SetID(this.new_id);
             o.SetX(x);
             o.SetY(y);
             this.new_id++;
             this.organizmy.add(o);
-            this.organizmy.sort(new Comparator<Organizm>() {
-                @Override
-                public int compare(Organizm o1, Organizm o2) {
-                    if(o1.inicjatywa>o2.inicjatywa) {
-                        return 0;
-                    }else{
-                        return 1;
-                    }
-                }
-            });
+            this.organizmy.sort(Comparator.comparing(Organizm::GetInicjatywa));
             this.info.add("Dodano nowy organizm "+o.getClass().getName());
         }
     }
@@ -111,16 +101,7 @@ public class Swiat {
             o.SetID(this.new_id);
             this.new_id++;
             this.organizmy.add(o);
-            this.organizmy.sort(new Comparator<Organizm>() {
-                @Override
-                public int compare(Organizm o1, Organizm o2) {
-                    if(o1.inicjatywa>o2.inicjatywa) {
-                        return 0;
-                    }else{
-                        return 1;
-                    }
-                }
-            });
+            this.organizmy.sort(Comparator.comparing(Organizm::GetInicjatywa));
             this.info.add("Dodano nowy organizm "+o.getClass().getName());
         }
     }
@@ -170,6 +151,7 @@ public class Swiat {
                 }
             }
         }
+        return new Dimension(-1,-1);
     }
     public void SetCzlowiek(Organizm c){
         this.czlowiek = c;
