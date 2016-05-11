@@ -18,7 +18,7 @@ public class Mlecz extends Roslina{
     public void akcja() {
         for (int i = 0; i < 3; i++) {
             Random r1 = new Random();
-            int x = r1.nextInt(30);
+            int x = r1.nextInt(100);
             if (x == 20) {
                 Dimension a = this.GetSwiat().freeSpaceP(this.GetX(),this.GetY());
                 Organizm d=null;

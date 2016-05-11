@@ -11,7 +11,7 @@ import java.util.Random;
 public class Roslina extends Organizm{
     public void akcja(){
         Random r1 = new Random();
-        int x = r1.nextInt(100);
+        int x = r1.nextInt(50);
         if(x==20){
             Dimension a = this.GetSwiat().freeSpaceP(this.GetX(),this.GetY());
             Organizm d=null;

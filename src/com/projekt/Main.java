@@ -10,12 +10,14 @@ public class Main {
                 Window a = new Window(s);
                 s.SetWindow(a);
                 spawnObjects(s);
+                s.UpdateLoop(-1);
                 s.RysujSwiat();
 
     }
 
     private static void spawnObjects(Swiat s) {
         Czlowiek c = new Czlowiek(s);
+        s.SetCzlowiek(c);
         Wilk w = new Wilk(s);
         Wilk w2 = new Wilk(s);
         Lis l1 = new Lis(s);

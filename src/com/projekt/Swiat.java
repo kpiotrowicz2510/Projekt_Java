@@ -12,12 +12,14 @@ import java.util.Random;
  * Created by usr on 2016-05-09.
  */
 public class Swiat {
+    private int pressedKey=-1;
     private int tura_numer;
     private int sRX=30;
     private int sRY=30;
     private int new_id;
-    private Organizm czlowiek;
+    private Czlowiek czlowiek;
     private List<Organizm> organizmy;
+
 
     protected List<String> info;
     private Window okienko;
@@ -33,16 +35,48 @@ public class Swiat {
     public int GetRY(){
         return this.sRY;
     }
-    public void UpdateLoop(){
-        this.WykonajTure();
+    public int GetPressedKey(){ return this.pressedKey; }
+    public int GetTura(){return this.tura_numer;}
+    public void UpdateLoop(int key){
+        this.WykonajTure(key);
+        this.UpdateLog();
         this.RysujSwiat();
     }
+    private void UpdateLog(){
+        JPanel p1 = (JPanel) this.okienko.getContentPane().getComponents()[0];
+        JEditorPane jep = (JEditorPane) p1.getComponent(p1.getComponentCount()-1);
+        String log = "<div align='center'>";
+        for (int i = this.info.size()-1; i >= 0 ; i--) {
+            log+="<div>"+this.info.get(i).replace("com.projekt.","")+"</div>";
+        }
+        log+="</div>";
+        jep.setText(log);
+    }
+    private void WykonajTure(int key){
 
-    private void WykonajTure(){
+        switch (key) {
+            case 38: //str up
+                this.pressedKey = 0;
+                break;
+            case 40: //str down
+                this.pressedKey = 1;
+                break;
+            case 39: //str prawo
+                this.pressedKey = 3;
+                break;
+            case 37: //str lewo
+                this.pressedKey = 2;
+                break;
+            case 83: //str spacja
+                this.pressedKey = 4;
+                break;
+        }
         for (int i = this.organizmy.size()-1; i >= 0 ; i--){
             this.organizmy.get(i).akcja();
             this.organizmy.get(i).kolizja();
         }
+        this.pressedKey=-1;
+        this.tura_numer++;
     }
     public void SetWindow(Window a){
         this.okienko = a;
@@ -154,10 +188,10 @@ public class Swiat {
         }
         return new Dimension(-1,-1);
     }
-    public void SetCzlowiek(Organizm c){
+    public void SetCzlowiek(Czlowiek c){
         this.czlowiek = c;
     }
-    public Organizm GetCzlowiek(){
+    public Czlowiek GetCzlowiek(){
         return this.czlowiek;
     }
 }

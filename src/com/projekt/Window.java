@@ -8,10 +8,7 @@ import javax.swing.text.Element;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.ListView;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.util.Random;
 
 
@@ -66,14 +63,28 @@ public class Window extends JFrame {
             j.addActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent e){
-                    swiat.UpdateLoop();
+                    swiat.UpdateLoop(-1);
                 }
             });
             jp2.add(j);
 
         }
+        KeyboardFocusManager.getCurrentKeyboardFocusManager()
+                .addKeyEventDispatcher(new KeyEventDispatcher() {
+
+                    @Override
+                    public boolean dispatchKeyEvent(KeyEvent e) {
+                        //System.out.println("Got key event! - "+e.getKeyCode());
+                        if(e.getID() == KeyEvent.KEY_PRESSED) {
+                            swiat.UpdateLoop(e.getKeyCode());
+
+                        }
+
+                        return false;
+                    }
+                });
         JEditorPane pane = new JEditorPane();
-        pane.setMaximumSize(new Dimension(100,100));
+        pane.setMaximumSize(new Dimension(sizeX*10,200));
         pane.setContentType("text/html");
         pane.setText("<ol id='foo'><li>One</li><li>Two</li></ol>");
         HTMLDocument doc = (HTMLDocument) pane.getDocument();

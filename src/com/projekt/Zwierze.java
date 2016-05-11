@@ -19,7 +19,13 @@ public class Zwierze extends Organizm {
                     this.rozmnazanie();
                 }
                 else {
-                    this.walka(org);
+                    if(this.GetSwiat().GetCzlowiek().isSpecial()){
+                        if(this.getClass().getSimpleName().equalsIgnoreCase("Czlowiek")){}else {
+                            this.uciekaj();
+                        }
+                    }else {
+                        this.walka(org);
+                    }
                 }
             }
         }
@@ -71,20 +77,36 @@ public class Zwierze extends Organizm {
         }
     }
     public void walka(Organizm o){
+        System.out.println(o.getClass().getSimpleName());
         if (this.GetSila() > o.GetSila()) {
+            if(o.getClass().getSimpleName().equalsIgnoreCase("Mlecz")||o.getClass().getSimpleName().equalsIgnoreCase("Trawa")){
+                String n = "Organizm (" + this.getClass().getSimpleName() + ") zjada (" + o.getClass().getSimpleName() + ")";
+                this.GetSwiat().info.add(n);
+            }else {
+                String n = "Organizm (" + this.getClass().getSimpleName() + ") zabija (" + o.getClass().getSimpleName() + ")";
+                this.GetSwiat().info.add(n);
+            }
             this.GetSwiat().deleteOrganizm(o.GetID());
-            String n = "Organizm ("+this.getClass().getSimpleName() + ") zabija ("+o.getClass().getSimpleName()+")";
-            this.GetSwiat().info.add(n);
         }
         if (this.GetSila() < o.GetSila()) {
+            if(o.getClass().getSimpleName().equalsIgnoreCase("Mlecz")||o.getClass().getSimpleName().equalsIgnoreCase("Trawa")){
+                String n = "Organizm (" + o.getClass().getSimpleName() + ") zjada (" + this.getClass().getSimpleName() + ")";
+                this.GetSwiat().info.add(n);
+            }else {
+                String n = "Organizm (" + o.getClass().getSimpleName() + ") zabija (" + this.getClass().getSimpleName() + ")";
+                this.GetSwiat().info.add(n);
+            }
             this.GetSwiat().deleteOrganizm(this.GetID());
-            String n = "Organizm ("+o.getClass().getSimpleName() + ") zabija ("+this.getClass().getSimpleName()+")";
-            this.GetSwiat().info.add(n);
         }
         if (this.GetSila() == o.GetSila()) {
+            if(o.getClass().getSimpleName().equalsIgnoreCase("Mlecz")||o.getClass().getSimpleName().equalsIgnoreCase("Trawa")){
+                String n = "Organizm (" + this.getClass().getSimpleName() + ") zjada (" + o.getClass().getSimpleName() + ")";
+                this.GetSwiat().info.add(n);
+            }else {
+                String n = "Organizm (" + this.getClass().getSimpleName() + ") zabija (" + o.getClass().getSimpleName() + ")";
+                this.GetSwiat().info.add(n);
+            }
             this.GetSwiat().deleteOrganizm(o.GetID());
-            String n = "Organizm ("+this.getClass().getSimpleName() + ") zabija ("+o.getClass().getSimpleName()+")";
-            this.GetSwiat().info.add(n);
         }
     }
     public void uciekaj(){
