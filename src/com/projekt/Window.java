@@ -16,6 +16,10 @@ public class Window extends JFrame {
     private Swiat swiat;
     private int sizeX;
     private int sizeY;
+    public void SetR(Dimension a){
+        this.sizeX = a.width;
+        this.sizeY = a.height;
+    }
     public void addOrganizm(int id){
         Object[] possibilities = {"Antylopa", "Guarana", "Jagody", "Lis", "Mlecz","Owca","Trawa","Zolw"};
         String s1 = (String)JOptionPane.showInputDialog(
@@ -91,6 +95,12 @@ public class Window extends JFrame {
         this.sizeX = Integer.parseInt(s1);
         this.sizeY = Integer.parseInt(s2);
         this.swiat.SetR(new Dimension(sizeX,sizeY));
+        init(swiat);
+       // pack();
+        setVisible(true);
+    }
+
+    public void init(final Swiat swiat) {
         JPanel mainPanelX = new JPanel();
         mainPanelX.setLayout(new BorderLayout());
         mainPanelX.setMinimumSize(new Dimension(300,500));
@@ -112,7 +122,7 @@ public class Window extends JFrame {
                 int _id = aj*sizeX+i;
                 j.setName(_id+"");
                 //j.setText(""+_id);
-                //j.setBorderPainted(false);
+                j.setBorderPainted(false);
                 j.setPreferredSize(new Dimension(10, 10));
                 j.setMaximumSize(new Dimension(10, 10));
                 j.addActionListener(new ActionListener()
@@ -141,12 +151,23 @@ public class Window extends JFrame {
         });
         jp2.add(j);
         j = new JButton();
+        j.setText("Super moc");
+        j.setPreferredSize(new Dimension(2,20));
+        j.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e){
+                swiat.UpdateLoop(83);
+            }
+        });
+        jp2.add(j);
+        j = new JButton();
         j.setText("Wczytaj");
         j.setPreferredSize(new Dimension(2,20));
         j.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-
+                swiat.Load();
+                swiat.RysujSwiat();
             }
         });
         jp2.add(j);
@@ -156,10 +177,11 @@ public class Window extends JFrame {
         j.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-
+                swiat.Save();
             }
         });
         jp2.add(j);
+
         j = new JButton();
         j.setText("Zakoncz");
         j.setPreferredSize(new Dimension(2,20));
@@ -203,7 +225,7 @@ public class Window extends JFrame {
         pane.setContentType("text/html");
         pane.setText("<ol id='foo'><li>One</li><li>Two</li></ol>");
         HTMLDocument doc = (HTMLDocument) pane.getDocument();
-       // add(pane);
+        // add(pane);
 
         //Get the ref of foo element
         Element ele=doc.getElement("foo");
@@ -217,7 +239,5 @@ public class Window extends JFrame {
         mainPanelX.add(jp2,BorderLayout.NORTH);
         mainPanelX.add(pane,BorderLayout.EAST);
         setContentPane(mainPanelX);
-       // pack();
-        setVisible(true);
     }
 }

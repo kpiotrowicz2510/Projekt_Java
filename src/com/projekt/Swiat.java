@@ -2,6 +2,7 @@ package com.projekt;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -45,10 +46,112 @@ public class Swiat {
         this.UpdateLog();
         this.RysujSwiat();
     }
+    public void Save(){
+        try(  PrintWriter out = new PrintWriter( "world.txt" )  ){
+            String dane="";
+            dane+=this.GetRX()+"\t"+this.GetRY()+"\t";
+            out.print( dane );
+            out.print(this.new_id+"\t"+this.tura_numer+"\t");
+            out.print(this.organizmy.size()+"\t");
+            for (int i = 0; i < this.organizmy.size(); i++) {
+                dane = "";
+                dane += this.organizmy.get(i).GetID() + "\t" + this.organizmy.get(i).getClass().getSimpleName() +"\t" + this.organizmy.get(i).GetColor().getRGB() + "\t" + this.organizmy.get(i).GetInicjatywa() + "\t" + this.organizmy.get(i).GetSila() + "\t" + this.organizmy.get(i).GetX() + "\t" + this.organizmy.get(i).GetY() + "\t";
+                out.print(dane);
+            }
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public void Load(){
+        try(BufferedReader br = new BufferedReader(new FileReader("world.txt"))) {
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+            }
+            String everything = sb.toString();
+            String[] values = everything.split("\\t");
+            this.organizmy.clear();
+            this.info.clear();
+            int rx = Integer.parseInt(values[0]);
+            int ry = Integer.parseInt(values[1]);
+            this.SetR(new Dimension(rx,ry));
+            this.okienko.SetR(new Dimension(rx,ry));
+            this.okienko.init(this);
+            this.UpdateLog();
+            int nid = Integer.parseInt(values[2]);
+            int tn = Integer.parseInt(values[3]);
+            int os = Integer.parseInt(values[4]);
+            int start = 5;
+            for(int i=0; i<os;i++){
+
+                int id = Integer.parseInt(values[start]);
+                String name = values[start+1];
+                Color color = Color.decode(values[start+2]);
+                int inicjatywa = Integer.parseInt(values[start+3]);
+                int sila = Integer.parseInt(values[start+4]);
+                int x = Integer.parseInt(values[start+5]);
+                int y = Integer.parseInt(values[start+6]);
+                switch (name){
+                    case "Antylopa" :
+                        Antylopa a1 = new Antylopa(this);
+                        this.AddOrganizm(a1,x,y);
+                        break;
+                    case "Czlowiek" :
+                        Czlowiek c1 = new Czlowiek(this);
+                        this.AddOrganizm(c1,x,y);
+                        this.SetCzlowiek(c1);
+                        break;
+                    case "Guarana" :
+                        Guarana g1 = new Guarana(this);
+                        this.AddOrganizm(g1,x,y);
+                        break;
+                    case "Jagody" :
+                        Jagody j1 = new Jagody(this);
+                        this.AddOrganizm(j1,x,y);
+                        break;
+                    case "Lis" :
+                        Lis l1 = new Lis(this);
+                        this.AddOrganizm(l1,x,y);
+                        break;
+                    case "Mlecz" :
+                        Mlecz m1 = new Mlecz(this);
+                        this.AddOrganizm(m1,x,y);
+                        break;
+                    case "Owca" :
+                        Owca o1 = new Owca(this);
+                        this.AddOrganizm(o1,x,y);
+                        break;
+                    case "Trawa" :
+                        Trawa t1 = new Trawa(this);
+                        this.AddOrganizm(t1,x,y);
+                        break;
+                    case "Zolw" :
+                        Zolw z1 = new Zolw(this);
+                        this.AddOrganizm(z1,x,y);
+                        break;
+                }
+                start+=7;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void UpdateLog(){
         //JPanel p1 = (JPanel) this.okienko.getContentPane().getComponents()[2];
         JEditorPane jep = (JEditorPane)  this.okienko.getContentPane().getComponents()[2];
-        String log = "<div align='center'>";
+        String log = "<div align='center' style='width:200px'>";
+        log += "<div align='left'> Tura: <b>"+this.tura_numer +"</b></div>";
+        if(this.GetCzlowiek().isSpecial()) {
+            log += "<div align='left'> Umiejetnosc: <b>Aktywna</b></div>";
+        }
+        log += "<br><hr><br>";
         for (int i = this.info.size()-1; i >= 0; i--) {
             log+="<div>"+this.info.get(i).replace("com.projekt.","")+"</div>";
         }
