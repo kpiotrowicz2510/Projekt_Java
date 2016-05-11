@@ -13,8 +13,8 @@ import java.util.Random;
  */
 public class Swiat {
     private int tura_numer;
-    private int sRX=10;
-    private int sRY=10;
+    private int sRX=30;
+    private int sRY=30;
     private int new_id;
     private Organizm czlowiek;
     private List<Organizm> organizmy;
@@ -41,6 +41,7 @@ public class Swiat {
     private void WykonajTure(){
         for (int i = this.organizmy.size()-1; i >= 0 ; i--){
             this.organizmy.get(i).akcja();
+            this.organizmy.get(i).kolizja();
         }
     }
     public void SetWindow(Window a){
@@ -71,7 +72,7 @@ public class Swiat {
         }
     }
     public void RysujSwiat(){
-        this.Clear(Color.GREEN);
+        this.Clear(Color.lightGray);
         for (int i = 0; i < this.organizmy.size() ; i++){
            this.ChangeState(this.organizmy.get(i).GetColor(),this.organizmy.get(i).GetX(),this.organizmy.get(i).GetY());
         }

@@ -1,6 +1,8 @@
 package com.projekt;
 
 import java.awt.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
@@ -42,13 +44,30 @@ public class Zwierze extends Organizm {
     }
     public void rozmnazanie(){
         Dimension a = this.GetSwiat().freeSpaceP(this.GetX(),this.GetY());
-        Zwierze f = this;
-        Zwierze g = f;
-        g.SetColor(this.GetColor());
-        g.SetX(a.width);
-        g.SetY(a.height);
+        Organizm d=null;
+        //Mlecz g = new Mlecz(this.GetSwiat());
+        try {
+            Class<?> theClass = Class.forName(this.getClass().getName());
+            Constructor ctor = theClass.getDeclaredConstructor(Swiat.class);
+            ctor.setAccessible(true);
+            d = (Organizm)ctor.newInstance(this.GetSwiat());
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        d.SetColor(this.GetColor());
+        d.SetX(a.width);
+        d.SetY(a.height);
         if (a.width > -1 && a.height > -1) {
-            this.GetSwiat().AddOrganizm(g, a.width, a.height);
+            this.GetSwiat().AddOrganizm(d, a.width, a.height);
         }
     }
     public void walka(Organizm o){

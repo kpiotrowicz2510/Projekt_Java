@@ -26,8 +26,8 @@ public class Window extends JFrame {
         mainPanelX.setLayout(new BoxLayout(mainPanelX, BoxLayout.X_AXIS));
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        int sizeX = 10;
-        int sizeY = 10;
+        int sizeX = 30;
+        int sizeY = 30;
         for(int aj=0;aj<sizeY;aj++) {
             JPanel jp = new JPanel();
             BoxLayout bl = new BoxLayout(jp, BoxLayout.X_AXIS);
