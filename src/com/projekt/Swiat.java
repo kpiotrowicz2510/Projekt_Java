@@ -27,7 +27,6 @@ public class Swiat {
     public Swiat(){
         this.organizmy = new ArrayList<Organizm>();
         this.info = new ArrayList<String>();
-       // Window.getFrames().getClass().;
     }
     public int GetRX(){
         return this.sRX;
@@ -37,16 +36,20 @@ public class Swiat {
     }
     public int GetPressedKey(){ return this.pressedKey; }
     public int GetTura(){return this.tura_numer;}
+    public void SetR(Dimension a){
+        this.sRX = a.width;
+        this.sRY = a.height;
+    }
     public void UpdateLoop(int key){
         this.WykonajTure(key);
         this.UpdateLog();
         this.RysujSwiat();
     }
     private void UpdateLog(){
-        JPanel p1 = (JPanel) this.okienko.getContentPane().getComponents()[0];
-        JEditorPane jep = (JEditorPane) p1.getComponent(p1.getComponentCount()-1);
+        //JPanel p1 = (JPanel) this.okienko.getContentPane().getComponents()[2];
+        JEditorPane jep = (JEditorPane)  this.okienko.getContentPane().getComponents()[2];
         String log = "<div align='center'>";
-        for (int i = this.info.size()-1; i >= 0 ; i--) {
+        for (int i = this.info.size()-1; i >= 0; i--) {
             log+="<div>"+this.info.get(i).replace("com.projekt.","")+"</div>";
         }
         log+="</div>";
@@ -132,8 +135,9 @@ public class Swiat {
     public void AddOrganizm(Organizm o, int x, int y){
 
         if(this.freeSpace(x,y)){
-            //this.org_c.split(",")[y*this.sRX+x] = o.GetColor().toString();
             o.SetID(this.new_id);
+            o.SetX(x);
+            o.SetY(y);
             this.new_id++;
             this.organizmy.add(o);
             this.organizmy.sort(Comparator.comparing(Organizm::GetInicjatywa));

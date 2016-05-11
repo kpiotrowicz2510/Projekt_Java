@@ -26,6 +26,8 @@ public class Main {
         Mlecz m2 = new Mlecz(s);
         Antylopa a1 = new Antylopa(s);
         Antylopa a2 = new Antylopa(s);
+        Guarana g1 = new Guarana(s);
+        Guarana g2 = new Guarana(s);
         Jagody j1 = new Jagody(s);
         Jagody j2 = new Jagody(s);
         Owca o1 = new Owca(s);
@@ -41,6 +43,8 @@ public class Main {
         s.AddOrganizm(l1);
         s.AddOrganizm(l2);
         s.AddOrganizm(m1);
+        s.AddOrganizm(g1);
+        s.AddOrganizm(g2);
         s.AddOrganizm(m2);
         s.AddOrganizm(a1);
         s.AddOrganizm(a2);
