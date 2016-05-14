@@ -43,11 +43,12 @@ public class Roslina extends Organizm{
     }
     public void kolizja(){
         Organizm org = this.GetSwiat().podajOrganizm(this.GetX(), this.GetY());
-        if (this.GetID() != org.GetID()&&this.GetColor()!=org.GetColor()) {
-            this.GetSwiat().deleteOrganizm(this.GetID());
-            String n = "Organizm ("+org.getClass().getSimpleName() + ") zjada ("+this.getClass().getSimpleName()+")";
-            this.GetSwiat().info.add(n);
+        if(org!=null) {
+            if (this.GetID() != org.GetID() && this.GetColor() != org.GetColor()) {
+                this.GetSwiat().deleteOrganizm(this.GetID());
+                String n = "Organizm (" + org.getClass().getSimpleName() + ") zjada (" + this.getClass().getSimpleName() + ")";
+                this.GetSwiat().info.add(n);
+            }
         }
-
     }
 }

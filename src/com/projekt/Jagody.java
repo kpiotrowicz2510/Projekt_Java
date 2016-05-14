@@ -14,7 +14,7 @@ public class Jagody extends Roslina{
     }
     public void kolizja(){
         Organizm org = this.GetSwiat().podajOrganizm(this.GetX(), this.GetY());
-        if(org.GetID()!=this.GetID()){
+        if(org!=null&&org.GetID()!=this.GetID()){
             this.GetSwiat().deleteOrganizm(org.GetID());
             this.GetSwiat().deleteOrganizm(this.GetID());
             String n = "Organizm ("+this.getClass().getSimpleName() + ") zabija ("+org.getClass().getSimpleName()+")";

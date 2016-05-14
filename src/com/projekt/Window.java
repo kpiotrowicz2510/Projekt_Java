@@ -92,8 +92,26 @@ public class Window extends JFrame {
                 null,
                 null,
                 "30");
+        if(s1.length()<1){
+            s1="30";
+        }
+        if(s2.length()<1){
+            s2="30";
+        }
         this.sizeX = Integer.parseInt(s1);
         this.sizeY = Integer.parseInt(s2);
+        if(this.sizeX<1) {
+            this.sizeX = 1;
+        }
+        if(this.sizeY<1){
+            this.sizeY = 1;
+        }
+        if(this.sizeX>50){
+            this.sizeX = 50;
+        }
+        if(this.sizeY>50){
+            this.sizeY = 50;
+        }
         this.swiat.SetR(new Dimension(sizeX,sizeY));
         init(swiat);
        // pack();

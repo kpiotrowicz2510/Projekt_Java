@@ -148,6 +148,7 @@ public class Swiat {
         JEditorPane jep = (JEditorPane)  this.okienko.getContentPane().getComponents()[2];
         String log = "<div align='center' style='width:200px'>";
         log += "<div align='left'> Tura: <b>"+this.tura_numer +"</b></div>";
+        log += "<div align='left'> Siła człowieka: <b>"+this.czlowiek.GetSila() +"</b></div>";
         if(this.GetCzlowiek().isSpecial()) {
             log += "<div align='left'> Umiejetnosc: <b>Aktywna</b></div>";
         }
@@ -179,6 +180,8 @@ public class Swiat {
         }
         for (int i = this.organizmy.size()-1; i >= 0 ; i--){
             this.organizmy.get(i).akcja();
+        }
+        for(int i=0;i<this.organizmy.size();i++){
             this.organizmy.get(i).kolizja();
         }
         this.pressedKey=-1;
@@ -232,7 +235,7 @@ public class Swiat {
             this.new_id++;
             this.organizmy.add(o);
             this.organizmy.sort(Comparator.comparing(Organizm::GetInicjatywa));
-            this.info.add("Dodano nowy organizm "+o.getClass().getName());
+            this.info.add("Dodano nowy organizm <span style='font-weight:bolder; color:"+o.GetColor().toString()+"'>"+o.getClass().getName()+"</span>");
         }
     }
     public void AddOrganizm(Organizm o, int x, int y){
@@ -244,11 +247,11 @@ public class Swiat {
             this.new_id++;
             this.organizmy.add(o);
             this.organizmy.sort(Comparator.comparing(Organizm::GetInicjatywa));
-            this.info.add("Dodano nowy organizm "+o.getClass().getName());
+            this.info.add("Dodano nowy organizm <span style='font-weight:bolder; color:"+o.GetColor().toString()+"'>"+o.getClass().getName()+"</span>");
         }
     }
     public Organizm podajOrganizm(int x, int y){
-        for (int i = 0; i < this.organizmy.size(); i++) {
+        for (int i =  this.organizmy.size()-1; i > 0; i--) {
             if (this.organizmy.get(i).GetX() == x &&this.organizmy.get(i).GetY() == y) {
                 return this.organizmy.get(i);
             }
@@ -264,7 +267,7 @@ public class Swiat {
         }
         if(del_id>-1){
             this.organizmy.remove(del_id);
-            this.info.add("Usunieto organizm o id "+del_id);
+            //this.info.add("Usunieto organizm o id "+del_id);
         }
     }
     public boolean freeSpace(int x, int y){

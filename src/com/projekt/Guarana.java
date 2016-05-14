@@ -14,7 +14,7 @@ public class Guarana extends Roslina{
     }
     public void kolizja(){
         Organizm org = this.GetSwiat().podajOrganizm(this.GetX(), this.GetY());
-        if(org.GetID()!=this.GetID()&&org.GetColor()!=this.GetColor()){
+        if(org!=null&&org.GetID()!=this.GetID()&&org.GetColor()!=this.GetColor()){
             org.SetSila(org.GetSila()+3);
             this.GetSwiat().deleteOrganizm(this.GetID());
         }

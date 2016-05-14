@@ -36,7 +36,11 @@ public class Zolw extends Zwierze{
         if (this.GetSwiat().freeSpace(this.GetX(), this.GetY()) == false) {
             if (this.GetID() != org.GetID()) {
                 if (org.GetColor() == this.GetColor()) {
-                    this.rozmnazanie();
+                    try {
+                        this.rozmnazanie();
+                    } catch (NoSpaceException e) {
+                        this.GetSwiat().info.add("Brak miejsca do rozmnażania!");
+                    }
                 }
                 else {
                     if(org.GetSila()<5) {

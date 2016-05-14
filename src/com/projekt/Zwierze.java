@@ -13,10 +13,14 @@ public class Zwierze extends Organizm {
     public void kolizja(){
         Organizm org = this.GetSwiat().podajOrganizm(this.GetX(), this.GetY());
 
-        if (this.GetSwiat().freeSpace(this.GetX(), this.GetY()) == false) {
+        if (org!=null&&this.GetSwiat().freeSpace(this.GetX(), this.GetY()) == false) {
             if (this.GetID() != org.GetID()) {
                 if (org.GetColor() == this.GetColor()) {
-                    this.rozmnazanie();
+                    try {
+                        this.rozmnazanie();
+                    } catch (NoSpaceException e) {
+                        this.GetSwiat().info.add("Brak miejsca do rozmnażania!");
+                    }
                 }
                 else {
                     if(this.GetSwiat().GetCzlowiek().isSpecial()){
@@ -48,7 +52,7 @@ public class Zwierze extends Organizm {
             this.SetY(this.GetY()+1);
         }
     }
-    public void rozmnazanie(){
+    public void rozmnazanie() throws NoSpaceException{
         Dimension a = this.GetSwiat().freeSpaceP(this.GetX(),this.GetY());
         Organizm d=null;
         //Mlecz g = new Mlecz(this.GetSwiat());
@@ -74,18 +78,24 @@ public class Zwierze extends Organizm {
         d.SetY(a.height);
         if (a.width > -1 && a.height > -1) {
             this.GetSwiat().AddOrganizm(d, a.width, a.height);
+        }else{
+            throw new NoSpaceException();
         }
     }
     public void walka(Organizm o){
         System.out.println(o.getClass().getSimpleName());
         if (this.GetSila() > o.GetSila()) {
-            if(o.getClass().getSimpleName().equalsIgnoreCase("Mlecz")||o.getClass().getSimpleName().equalsIgnoreCase("Trawa")){
+            if(o.getClass().getSimpleName().equalsIgnoreCase("Mlecz")||o.getClass().getSimpleName().equalsIgnoreCase("Trawa")||o.getClass().getSimpleName().equalsIgnoreCase("Guarana")){
+                if(o.getClass().getSimpleName().equalsIgnoreCase("Guarana")){
+                    o.kolizja();
+                }
                 String n = "Organizm (" + this.getClass().getSimpleName() + ") zjada (" + o.getClass().getSimpleName() + ")";
                 this.GetSwiat().info.add(n);
             }else {
                 String n = "Organizm (" + this.getClass().getSimpleName() + ") zabija (" + o.getClass().getSimpleName() + ")";
                 this.GetSwiat().info.add(n);
             }
+
             this.GetSwiat().deleteOrganizm(o.GetID());
         }
         if (this.GetSila() < o.GetSila()) {
