@@ -43,7 +43,7 @@ public class Roslina extends Organizm{
     }
     public void kolizja(){
         Organizm org = this.GetSwiat().podajOrganizm(this.GetX(), this.GetY());
-        if(org!=null) {
+        if(org!=null&&org instanceof Zwierze) {
             if (this.GetID() != org.GetID() && this.GetColor() != org.GetColor()) {
                 this.GetSwiat().deleteOrganizm(this.GetID());
                 String n = "Organizm (" + org.getClass().getSimpleName() + ") zjada (" + this.getClass().getSimpleName() + ")";

@@ -114,6 +114,20 @@ public class Window extends JFrame {
         }
         this.swiat.SetR(new Dimension(sizeX,sizeY));
         init(swiat);
+        KeyboardFocusManager.getCurrentKeyboardFocusManager()
+                .addKeyEventDispatcher(new KeyEventDispatcher() {
+
+                    @Override
+                    public boolean dispatchKeyEvent(KeyEvent e) {
+                        //System.out.println("Got key event! - "+e.getKeyCode());
+                        if(e.getID() == KeyEvent.KEY_PRESSED) {
+                            swiat.UpdateLoop(e.getKeyCode());
+
+                        }
+
+                        return false;
+                    }
+                });
        // pack();
         setVisible(true);
     }
@@ -223,20 +237,7 @@ public class Window extends JFrame {
             jp2.add(j);
 
         }*/
-        KeyboardFocusManager.getCurrentKeyboardFocusManager()
-                .addKeyEventDispatcher(new KeyEventDispatcher() {
 
-                    @Override
-                    public boolean dispatchKeyEvent(KeyEvent e) {
-                        //System.out.println("Got key event! - "+e.getKeyCode());
-                        if(e.getID() == KeyEvent.KEY_PRESSED) {
-                            swiat.UpdateLoop(e.getKeyCode());
-
-                        }
-
-                        return false;
-                    }
-                });
         JEditorPane pane = new JEditorPane();
         pane.setMaximumSize(new Dimension(sizeX*10,200));
 
