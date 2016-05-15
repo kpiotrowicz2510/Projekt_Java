@@ -82,10 +82,13 @@ public class Swiat {
             this.SetR(new Dimension(rx,ry));
             this.okienko.SetR(new Dimension(rx,ry));
             this.okienko.init(this);
-            this.UpdateLog();
+
             int nid = Integer.parseInt(values[2]);
             int tn = Integer.parseInt(values[3]);
             int os = Integer.parseInt(values[4]);
+            this.tura_numer = tn;
+            this.new_id = nid;
+
             int start = 5;
             for(int i=0; i<os;i++){
 
@@ -103,6 +106,7 @@ public class Swiat {
                         break;
                     case "Czlowiek" :
                         Czlowiek c1 = new Czlowiek(this);
+                        c1.SetSila(sila);
                         this.AddOrganizm(c1,x,y);
                         this.SetCzlowiek(c1);
                         break;
@@ -137,6 +141,7 @@ public class Swiat {
                 }
                 start+=7;
             }
+            this.UpdateLog();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
